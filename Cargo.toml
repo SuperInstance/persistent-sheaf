@@ -1,0 +1,11 @@
+[package]
+name = "persistent-sheaf"
+version = "0.1.0"
+edition = "2021"
+description = "Persistent sheaf cohomology, cellular sheaf Laplacians, and multi-modal data fusion"
+license = "MIT"
+keywords = ["topology", "sheaf", "persistence", "homology", "data-analysis"]
+categories = ["mathematics", "science"]
+repository = "https://github.com/SuperInstance/persistent-sheaf"
+
+[dependencies]
