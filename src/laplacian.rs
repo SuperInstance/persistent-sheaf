@@ -150,7 +150,7 @@ impl SheafLaplacian {
     /// Compute the Fiedler value (second smallest eigenvalue, algebraic connectivity).
     pub fn fiedler_value(&self) -> f64 {
         // Simplified: largest eigenvalue minus trace / n for small matrices
-        let trace: f64 = (0..self.dimension).map(|i| self.matrix[i][i]).sum();
+        let _trace: f64 = (0..self.dimension).map(|i| self.matrix[i][i]).sum();
         let max_eig = self.largest_eigenvalue(50);
         // Rough approximation
         max_eig / self.dimension.max(1) as f64

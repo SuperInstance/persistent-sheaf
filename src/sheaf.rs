@@ -37,7 +37,7 @@ impl CellularSheaf {
 
     /// Create a sheaf from weight functions on edges.
     pub fn from_weights(complex: SimplicialComplex, weights: &[f64]) -> Self {
-        let id: Vec<Vec<f64>> = vec![vec![1.0]];
+        let _id: Vec<Vec<f64>> = vec![vec![1.0]];
         let maps: Vec<_> = complex
             .edges
             .iter()

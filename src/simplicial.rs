@@ -43,7 +43,7 @@ impl SimplicialComplex {
 
     /// Add a triangle (ensures edges exist).
     pub fn add_triangle(&mut self, a: usize, b: usize, c: usize) {
-        let mut verts = vec![a, b, c];
+        let mut verts = [a, b, c];
         verts.sort();
         let tri = (verts[0], verts[1], verts[2]);
         self.add_edge(a, b);
@@ -99,7 +99,7 @@ impl SimplicialComplex {
 
         // β_0: number of connected components (union-find)
         let mut parent: Vec<usize> = (0..n).collect();
-        let mut find = |v: usize, parent: &mut Vec<usize>| -> usize {
+        let find = |v: usize, parent: &mut Vec<usize>| -> usize {
             let mut x = v;
             while parent[x] != x {
                 parent[x] = parent[parent[x]];
