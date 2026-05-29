@@ -1,40 +1,68 @@
 # persistent-sheaf
 
-Persistent sheaf cohomology, cellular sheaf Laplacians, and multi-modal data fusion via topological data analysis.
+**Persistent sheaf cohomology and cellular sheaf Laplacians in pure Rust — multi-modal data fusion through topology.**
 
-## Usage
+Combines persistent homology with sheaf theory. A cellular sheaf assigns data spaces (stalks) to cells of a simplicial complex with linear restriction maps between them. The sheaf Laplacian generalizes the graph Laplacian by encoding both geometric and non-geometric information. This library builds filtrations, computes sheaf cohomology, and constructs the sheaf Laplacian for spectral analysis.
+
+## What This Gives You
+
+- **Simplicial complexes** — vertices, edges, triangles, tetrahedra with Vietoris-Rips construction
+- **Cellular sheaves** — constant sheaves, weighted sheaves, custom restriction maps
+- **Sheaf Laplacian** — L_F generalizes graph Laplacian with stalk/restriction information
+- **Persistent homology** — birth-death pairs across filtration scales
+- **Persistence diagrams** — total persistence, essential features, bottleneck distance
+- **Zero dependencies** — pure Rust
+
+## Quick Start
 
 ```rust
-use persistent_sheaf::{SimplicialComplex, PersistenceDiagram, CellularSheaf, Filtration};
+use persistent_sheaf::{SimplicialComplex, CellularSheaf, SheafLaplacian, Filtration};
 
-// Build a Vietoris-Rips complex from distances
-let distances = vec![vec![0.0, 1.0, 2.0], vec![1.0, 0.0, 1.0], vec![2.0, 1.0, 0.0]];
-let complex = SimplicialComplex::vietoris_rips(&distances, 1.5);
+// Build distance matrix
+let distances = vec![/* N×N */];
 
-// Compute persistence
-let filtration = Filtration::from_distance_matrix(&distances, 10);
-let diagram = filtration.compute_persistence();
+// Vietoris-Rips filtration
+let filt = Filtration::from_distance_matrix(&distances, 20);
 
-// Cellular sheaf with Laplacian
-let sheaf = CellularSheaf::constant(complex, 2);
-let laplacian = SheafLaplacian::from_sheaf(&sheaf);
+// Constant sheaf on the complex
+let complex = SimplicialComplex::vietoris_rips(&distances, 0.5);
+let sheaf = CellularSheaf::constant(complex, 3); // 3D stalks
+
+// Sheaf Laplacian
+let lap = SheafLaplacian::from_sheaf(&sheaf);
 ```
 
-## Features
+## API Reference
 
-- **Simplicial complexes**: Vertices, edges, triangles with Euler characteristic and Betti numbers
-- **Vietoris-Rips construction** from distance matrices
-- **Persistence diagrams**: Birth-death pairs, bottleneck distance, Betti curves
-- **Cellular sheaves**: Constant and weighted with cohomology computation
-- **Sheaf Laplacian**: Generalizes graph Laplacian with sheaf-theoretic information
-- **Filtration builder**: From distance matrices with incremental persistence
+| Module | Key Types |
+|--------|-----------|
+| `simplicial` | `SimplicialComplex` |
+| `sheaf` | `CellularSheaf` — constant, weighted, custom |
+| `laplacian` | `SheafLaplacian` |
+| `filtration` | `Filtration` |
+| `persistence` | `PersistenceDiagram`, `PersistencePair` |
 
-## Tests
+## Testing
 
-28 tests, all passing. `cargo test` to run.
+```bash
+cargo test
+```
+
+## Installation
+
+```toml
+[dependencies]
+persistent-sheaf = { git = "https://github.com/SuperInstance/persistent-sheaf" }
+```
+
+## How It Fits
+
+Part of the SuperInstance ecosystem:
+
+- **[persistent-social](https://github.com/SuperInstance/persistent-social)** — Social network TDA in Go
+- **[gpu-sheaf-laplacian](https://github.com/SuperInstance/gpu-sheaf-laplacian)** — CUDA sheaf Laplacian
+- **persistent-sheaf** — Rust sheaf cohomology library (this repo)
 
 ## License
 
 MIT
-
-Part of the [SuperInstance OpenConstruct](https://github.com/SuperInstance/OpenConstruct) ecosystem.
